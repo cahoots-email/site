@@ -1,0 +1,112 @@
+<html>
+  <head>
+    <title>Gmail Peer Edit</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="http://fb.me/react-0.12.2.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.12.2.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script type="text/jsx">
+
+      var App = React.createClass({
+        render: function() {
+            return(
+              <div>
+                <div id="left">
+                  <SliderContainer />
+                  <DraftBox />
+                </div>
+                <div id="right">
+                  
+                </div>
+              </div>
+            );
+        }
+      });
+
+      var LeftSide = React.createClass({
+        render:function() {
+          return (
+            <div id="left">
+              <SliderContainer />
+              <DraftBox />
+            </div>
+          );
+        }
+      });
+
+      var SliderContainer = React.createClass({
+        getInitialState:function(){
+            return {
+              draftNum:5
+            }
+        },
+        update:function(){
+            this.setState({
+                draftNum:this.refs.draftNum.refs.range.getDOMNode().value
+                // need to get new draft and display on current draft field
+            })
+        },
+        render:function(){
+            return (
+                <div>
+                    <Slider ref="draftNum" update={this.update} />
+                </div>
+            )
+        }
+      });
+
+      var Slider = React.createClass({
+          render:function(){
+            var max = 5; // get # drafts
+            return (
+                <div>
+                    <input 
+                        ref="range"
+                        type="range"
+                        min="1"
+                        max={max}
+                        step = "1"
+                        onChange={this.props.update} />
+                </div>
+            )
+          }
+      });
+
+      var DraftBox = React.createClass({
+        getInitialState: function() {
+          var draftText = "hahahahah this is the current draft"; // get real draft from db
+          var value = "hello" // get real current draft from db
+          return {value: value, draftText: draftText};
+        },
+        handleSubmit: function(event) {
+          // send changes to db, update frontend
+          console.log("hahaha");
+          console.log(event);
+          this.setState({draftText: event.target.draftText});
+        },
+        handleChange: function(event) {
+          this.setState({value: event.target.value});
+        },
+        render: function() {
+          var value = this.state.value; // get value from drafts
+          return (
+            <div class="draftBox">
+              <p>{this.state.draftText}</p>
+              <form className="commentForm" onSubmit={this.handleSubmit}>
+                <input type="text" value={value} onChange={this.handleChange}/><br />
+                <input type="submit" value="Submit Edit" />
+              </form>
+            </div>
+          );
+        }
+      });
+      React.render(
+        <App />,
+        document.body
+      );
+    </script>
+  </body>
+</html>

@@ -1,15 +1,89 @@
 #left {
     float: left;
-    width: 70%;
+    width: 60%;
     height: 100%;
     display: inline-block;
     text-align: center;
+    background-color: white;
 }
 
 #right {
     float: left;
-    width:30%;
+    width:20%;
     height: 100%;  
     background-color: black;
     display: inline-block;
+    text-align: center;
+    color: white;
+}
+
+#right-right {
+    float: left;
+    width: 20%;
+    height: 100%;
+    display: inline-block;
+    text-align: center;
+    background-color: white;
+}
+
+#centered-text {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+.sliderContainer {
+    font-size: 40px;
+}
+
+#draftText {
+    height: 33%;
+    width: 80%;
+    border: solid;
+    margin: 10px;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.draftBox h3 {
+    font-size: 18px;
+}
+
+#editBox {
+    height: 33%;
+    width: 80%;
+    border: solid;
+    border-color: green;
+    padding: 10px;
+    margin: 10px;
+    font-size: 14px;
+}
+
+
+#submitDraft {
+    width: 80%; 
+    height: 50px;
+    font-size: 16px;
+}
+
+#addEmail {
+    width: 80%;
+    color: black;
+}
+
+#submitEmail {
+    width: 80%;
+    color: black;
+}
+
+input[type=range]{
+    -webkit-appearance: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 300px;
+    height: 15px;
+    background: grey;
+    border: none;
+    border-radius: 3px;
 }

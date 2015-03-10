@@ -21,7 +21,7 @@ var App = React.createClass({
 var SliderContainer = React.createClass({
   getInitialState:function(){
     return {
-      draftNum:1
+      draftNum: 1
     }
   },
   update:function(){
@@ -29,8 +29,8 @@ var SliderContainer = React.createClass({
     var index = this.refs.draftNum.refs.range.getDOMNode().value;
     var dboxrefs = this.refs.curDraftBox.refs;
     var dboxstate = this.refs.curDraftBox.state;
-    // dboxrefs.curEdit.getDOMNode().value = dboxstate.edits[index - 1].text;
-    // dboxrefs.recentEdit.getDOMNode().value = "Edit by " + dboxstate.edits[index - 1].email;
+
+    // Update draft box with draft at index chosen via animation
     $("#" + dboxrefs.curEdit.getDOMNode().id).animate({opacity:0},function(){
       $(this).text(dboxstate.edits[index - 1].text).animate({opacity:1});  
     })
@@ -39,7 +39,6 @@ var SliderContainer = React.createClass({
       $(this).text("Edit by " + dboxstate.edits[index - 1].email).animate({opacity:1});  
     })
 
-    
     dboxstate.curEdit = dboxstate.edits[index - 1];
     this.setState({
       draftNum:index
@@ -48,7 +47,7 @@ var SliderContainer = React.createClass({
   },
   render:function(){
     return (
-      <div className="sliderContainer">
+      <div>
         <Slider ref="draftNum" update={this.update} />
         <CurDraftBox ref="curDraftBox" update={this.update} />
       </div>
@@ -58,6 +57,7 @@ var SliderContainer = React.createClass({
 
 var Slider = React.createClass({
     render:function(){
+      // TODO: put actual max here
       var max = 5;
       return (
         <div className="slider">
@@ -183,7 +183,7 @@ var CollaboratorList = React.createClass({
   render: function() {
     var collabNodes = this.props.data.map(function (c) {
       return (
-        <Collaborator id={c.email}></Collaborator>
+        <Collaborator email={c.email}></Collaborator>
       );
     });
     return (
@@ -197,8 +197,8 @@ var CollaboratorList = React.createClass({
 var Collaborator = React.createClass({
   render: function() {
     return (
-      <p className="collabId">
-        {this.props.id}
+      <p>
+        {this.props.email}
       </p>
     );
   }
@@ -251,11 +251,12 @@ var DraftList = React.createClass({
 
 var Draft = React.createClass({
   render: function() {
+    // TO-DO: get URL of base URL + /{draft_id}
     var url = "";
 
     return (
       <div className="draft">
-        <a className="draftId" href={url}>
+        <a href={url}>
           {this.props.id}
         </a>
       </div>
